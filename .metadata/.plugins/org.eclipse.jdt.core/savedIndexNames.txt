@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+C:\Users\DENIS\Documents\docapp\.metadata\.plugins\org.eclipse.jdt.core
+1652840487.index
+3233445340.index
+3351846374.index
+298433138.index

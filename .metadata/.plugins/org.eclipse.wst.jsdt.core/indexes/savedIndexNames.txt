@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+C:\Users\DENIS\Documents\docapp\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4245184654.index
+1677191873.index
+1566111677.index
+3351846374.index
+4158025761.index

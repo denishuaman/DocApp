@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Validacion de usuarios</title>
+  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+      <script src="jquery.mobile/jquery-1.7.2.min"></script>
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css"/>
+
+</head>
+
+<body>
+
+<div data-role="page" id="reservarcitaMedica">
+
+	<div class="barraTitulo">
+
+		<img style="margin-left:10px;" align="left" src="camp.png"/>
+		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
+		DocApp
+		<img style="margin-rigth:10px;" align="right" src="help.png"/>
+		<img style="margin-rigth:10px;" align="right" src="config.png"/>
+		
+		</div>
+		
+	<div class="barraSubtitulo">Reservar Cita Medica</div>
+
+	<div data-role="content">
+
+	<div id="formReservarCita">
+			<div id="labEspecialidad">Seleccione la especialidad
+
+			</div>
+
+			<div>Seleccione el dia
+				<select id="selectDia">
+				  <option value="LU">Lunes </option>
+				  <option value="MA">Martes</option>
+				  <option value="MI">Miercoles</option>
+				  <option value="JU">Jueves</option>
+				  <option value="VI">Viernes</option>
+				  <option value="SA">Sabado</option>
+				</select>
+			</div>
+
+			<div id="enviarFormularioDoc" class="botonFormulario">Siguiente</div>
+
+			<div id="seleccionMedico">
+
+			</div>
+			<div id="botonRegistrarCM" style="display:none;" class="botonFormulario">Continuar</div>
+	</div>	
+
+	</div> 
+
+
+</div>
+
+ <div data-role="page" id="registroFinalMedico">
+
+	
+	<div class="barraTitulo">
+
+		<img style="margin-left:10px;" align="left" src="camp.png"/>
+		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
+		DocApp
+		<img style="margin-rigth:10px;" align="right" src="help.png"/>
+		<img style="margin-rigth:10px;" align="right" src="config.png"/>
+		
+		</div>
+		
+	<div class="barraSubtitulo">Reservar Cita Medica</div>	
+    
+	<div data-role="content">	
+		<form id="formulario" >
+      
+      			<label> N° de turno </label>
+      			<input type="text" id="turnoCita" name="turnoCita" readonly>
+      
+      			<label> Código del doctor</label>
+      			<input type="text" id="codDoctor" name="codDoctor" readonly>
+
+      			<label> Especialidad </label>
+      			<input type="text" id="especialidad" name="especialidad" readonly>
+
+      			<label> Doctor </label>
+      			<input type="text" id="doctor" name="doctor" readonly>
+
+      			<label> Fecha </label>
+      			<input type="text" id="fecha" name="fecha" readonly>
+
+      			<label> Hora </label>
+      			<input type="text" id="hora" name="hora" readonly>
+
+     			<div id="registrarCitaMedica" class="botonFormulario">Registrar Cita!</div>
+      
+    		</form>		
+	</div>
+	 
+</div>
+
+	<section id="pageIncorrecto" data-role="dialog">
+			<header data-role="header">
+				<h1>Error</h1>
+			</header>
+			<article data-role="content">
+				<p>La cita ya fue reservada anteriormente</p>
+				<a href="#" data-role="button" data-rel="back">Aceptar</a>
+			</article>
+	</section>
+
+	<section id="pageCorrecto" data-role="dialog">
+			<header data-role="header">
+				<h1>Cita reservada!</h1>
+			</header>
+			<article data-role="content">
+				<p>La cita fue reservada exitosamente!</p>
+				<a href="#" data-role="button" data-rel="back">Aceptar</a>
+			</article>
+	</section>
+
+<script>
+
+$('#reservarcitaMedica').on('pageinit', function() {
+ 			archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
+
+			$.getJSON(archivoValidacion).done(function(respuestaServer){
+		 	 var $espec = "<div id=\"labEspecialidad\">Seleccione la especialidad<select id=\"selectEspecialidad\">";
+
+		 	 for (var i = 0; i < respuestaServer.length; i++) {
+		 	 	$espec = $espec + "<option value=\""+ respuestaServer[i].nombre+"\">"+ respuestaServer[i].nombre+" </option>";
+		 	 };
+
+		 	 
+		 	 $espec = $espec + "</select></div>";
+
+
+			$("#labEspecialidad").html($espec);
+			$.mobile.changePage("#reservarcitaMedica");
+			$("#labEspecialidad").trigger("create");
+});
+});
+</script>
+</body>
+
+	<script src="index2.js"></script>
+</html>
