@@ -1,4 +1,4 @@
-var dniUsuario;
+var dniUsuario=12345678;
 var SelectCancelar;
 
 
@@ -142,8 +142,8 @@ $('#botonLogin').click(function(event) {
 			$.mobile.changePage("#tareas");
 		  
 		}else{
-			alert(respuestaServer.validacion);
-			$.mobile.changePage();
+			alert('Contraseña o usuario incorrecto');
+ 
  		}
   
 	}).fail(function() {
@@ -151,3 +151,5 @@ $('#botonLogin').click(function(event) {
  	 });
 
  });
+
+

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Validacion de usuarios</title>
-  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.4.5.min.css" />
       <script src="jquery.mobile/jquery-1.7.2.min"></script>
-	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script src="jquery.mobile/jquery.mobile-1.4.5.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="index.css"/>
 
 </head>
@@ -122,7 +122,7 @@
 
 <script>
 
-$('#reservarcitaMedica').on('pageinit', function() {
+$('#reservarcitaMedica').on('pagebeforeshow', function() {
  			archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
 
 			$.getJSON(archivoValidacion).done(function(respuestaServer){

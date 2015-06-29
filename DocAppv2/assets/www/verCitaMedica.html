@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Validacion de usuarios</title>
-  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.4.5.min.css" />
       <script src="jquery.mobile/jquery-1.7.2.min"></script>
-	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script src="jquery.mobile/jquery.mobile-1.4.5.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="index.css"/>
 
 </head>
@@ -31,12 +31,14 @@
 	</div>
 
 </div>
-<script>
+<script src="index2.js"></script>
+ <script type="text/javascript">
 
-$('#verCitaMedica').on('pageinit', function() {
+ 
+$('#verCitaMedica').on('pagebeforeshow', function() {
 
 	archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
-
+	alert(dniUsuario);
 	$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
 					var listaPac = "";
 				for (var i = 0; i < respuestaServer.length; i++) {
@@ -50,7 +52,9 @@ $('#verCitaMedica').on('pageinit', function() {
 		    	alert( "Ocurrio un error en la conexion" );
 		 	});
 });
-</script>
+
+ 	
+ </script>
 </body>
-	<script src="index2.js"></script>
+
 </html>
