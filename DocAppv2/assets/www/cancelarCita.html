@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -30,7 +30,6 @@
 		<div id="labelCitaCancelar"></div>
 		<div id="verCitaCancelarBoton" class="botonFormulario">Ver</div>
 		<br/>
-		<br/>
 		<div id="contentCitaCancelar">
 		</div>
 		<div id="botonCancelarCita" style="display:none" class="botonFormulario">Cancelar Cita</div>
@@ -42,8 +41,8 @@
 				<h1>Error</h1>
 			</header>
 			<article data-role="content">
-				<p>La cita ya fue reservada anteriormente</p>
-				<a href="#" data-role="button" data-rel="back">Aceptar</a>
+				<p>La cita no ha podido ser cancelada</p>
+				<a href="#cancelarCita" data-role="button">Aceptar</a>
 			</article>
 	</section>
 
@@ -52,8 +51,8 @@
 				<h1>Cita reservada!</h1>
 			</header>
 			<article data-role="content">
-				<p>La cita fue reservada exitosamente!</p>
-				<a href="#" data-role="button" data-rel="back">Aceptar</a>
+				<p>La cita fue cancelada exitosamente!</p>
+				<a href="#cancelarCita"  data-role="button" >Aceptar</a>
 			</article>
 	</section>
 	<script>
@@ -66,6 +65,7 @@
 
 			if(respuestaServer.ok==1){
      					$.mobile.changePage('#pageCorrecto', 'pop',true,true);
+     					yourSelectCita.remove(selectCita);
      				}else{ 
      					$.mobile.changePage('#pageIncorrecto', 'pop',true,true);
      				}
@@ -87,19 +87,23 @@
 	
 $('#cancelarCita').on('pageinit', function() {
 		archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
-
-			$.getJSON(archivoValidacion).done(function(respuestaServer){
+			
+			$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
 		 	var espec = "<div id=\"labelCitaCancelar\">Seleccione la cita<select id=\"selectCitaCancelar\">";
 			SelectCancelar=respuestaServer;
+			alert('aa'+respuestaServer.length);
 		 	 for (var i = 0; i < respuestaServer.length; i++) {
 		 	 	espec = espec + "<option value=\""+i+"\">"+ respuestaServer[i].Dia+" "+respuestaServer[i].Fecha+"-"+respuestaServer[i].Hora+" </option>";
 		 	 };
 		 	 espec = espec + "</select></div>";
 
 
-			$("#labelCitaCancelar").html($espec);
+			$("#labelCitaCancelar").html(espec);
 			$.mobile.changePage("#cancelarCita");
 			$("#labelCitaCancelar").trigger("create");
+			}).fail(function(){
+
+				alert('Error');
 			});
 });
 	</script>
