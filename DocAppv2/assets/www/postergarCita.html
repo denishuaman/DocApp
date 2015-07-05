@@ -36,7 +36,7 @@
 
 
 
-		<div id="selectCitaFecha"></div>
+		<div id="labelFechaPostergar"></div>
 
 		<div id="botonPostergarCita" style="display:none" class="botonFormulario">Postergar Cita</div>
 	</div>
@@ -47,8 +47,8 @@
 				<h1>Error</h1>
 			</header>
 			<article data-role="content">
-				<p>La cita no ha podido ser cancelada</p>
-				<a href="#cancelarCita" data-role="button">Aceptar</a>
+				<p>La cita no ha podido ser postergada</p>
+				<a href="#postergarCita" data-role="button">Aceptar</a>
 			</article>
 	</section>
 
@@ -57,8 +57,8 @@
 				<h1>Cita reservada!</h1>
 			</header>
 			<article data-role="content">
-				<p>La cita fue cancelada exitosamente!</p>
-				<a href="#cancelarCita"  data-role="button" >Aceptar</a>
+				<p>La cita fue postergada exitosamente!</p>
+				<a href="#postergarCita"  data-role="button" >Aceptar</a>
 			</article>
 	</section>
 
@@ -69,31 +69,23 @@
 	$('#botonPostergarCita').click(function(event) {
 		
 		archivoValidacion = "http://docapp.esy.es/postergarCita.php?jsoncallback=?";
-		var ySelectCita = document.getElementById( "selectCitaFecha");
+
+		var ySelectCita = document.getElementById( "selectFechaPostergar");
 				
 
 
 		var selectCita = ySelectCita.selectedIndex;
-alert("algo1"+SelectCancelar[selectCita].Codigo);
-		var fechaN = yourSelectCita.options[ySelectCita.selectedIndex].value;
+		var fechaN = ySelectCita.options[selectCita].value;
+		alert(SelectCancelar[selectCita].Codigo);
 
-			$.getJSON(archivoValidacion,{fechaNueva:fechaN,
-
-				paciente:dniUsuario,
-
-				medico:SelectCancelar[selectCita].Codigo,
-
-				fechaAntigua:SelectCancelar[selectCita].Fecha,
-
-				paciente:dniUsuario}).done(function(respuestaServer){
+			$.getJSON(archivoValidacion,{fechaNueva:fechaN,paciente:dniUsuario,medico:SelectCancelar[selectCita].Codigo,fechaAntigua:SelectCancelar[selectCita].Fecha,paciente:dniUsuario}).done(function(respuestaServer){
 
 				alert("algo2");
 			if(respuestaServer.ok==1){
-     					$.mobile.changePage('#pageCorrecto', 'pop',true,true);
-     					yourSelectCita.remove(selectCita);
-     				}else{ 
-     					$.mobile.changePage('#pageIncorrecto', 'pop',true,true);
-     				}
+     				$.mobile.changePage('#pageCorrecto', 'pop',true,true);
+     			}else{ 
+     				$.mobile.changePage('#pageIncorrecto', 'pop',true,true);
+     			}
 			
 			});
 	});
@@ -117,7 +109,7 @@ alert("algo1"+SelectCancelar[selectCita].Codigo);
 
 				archivoValidacion = "http://docapp.esy.es/obtenerDisponibilidadMedico.php?jsoncallback=?";
 				$.getJSON(archivoValidacion,{medico:SelectCancelar[selectCita].Codigo}).done(function(respuestaServer){
-				var espec = "<div id=\"labelCitaPostergar\">Seleccione la cita<select id=\"selectCitaPostergar\">";
+				var espec = "<div id=\"labelFechaPostergar\">Seleccione la cita<select id=\"selectFechaPostergar\">";
 					
 				var selectDia;
 
@@ -151,9 +143,9 @@ alert("algo1"+SelectCancelar[selectCita].Codigo);
 
 
 
-				$("#selectCitaFecha").html(espec);
+				$("#labelFechaPostergar").html(espec);
 				$.mobile.changePage("#postergarCita");
-				$("#selectCitaFecha").trigger("create");
+				$("#labelFechaPostergar").trigger("create");
 				}).fail(function(){
 
 				alert('Error');
