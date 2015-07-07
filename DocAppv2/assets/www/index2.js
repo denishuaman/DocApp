@@ -123,8 +123,21 @@ $('#botonCitaMedica').click(function(event) {
  $.mobile.changePage("#citaMedica");
 });
 
+
+restaFechas = function(f2,f1)
+ {
+	 var aFecha1 = f1.split('-'); 
+	 var aFecha2 = f2.split('-'); 
+	 var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
+	 var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+	 var dif = fFecha2 - fFecha1;
+	 var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+
+	 return dias;
+ }
+
 $('#botonLogin').click(function(event) { 
-	alert('ola');
+
 
 
  	var datosUsuario = $("#nombredeusuario").val();
@@ -134,16 +147,30 @@ $('#botonLogin').click(function(event) {
 
 	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
 	.done(function(respuestaServer) {
-  		
  		if(respuestaServer.validacion == "ok"){
 		 	/// si la validacion es correcta
 		 	dniUsuario = respuestaServer.dni;
 		 	alert(dniUsuario);
+		 	$.getJSON( "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?",{paciente:dniUsuario}).done(function(respuestaServer){
+		 		var dif;
+		 		for (var i = 0; i < respuestaServer.length; i++) {
+		 			var fechaActual = new Date().getFullYear()+"-"+(new Date().getMonth()+1) + "-"+(new Date().getDate());
+		 			var diferenciaFecha = restaFechas(respuestaServer[i].Fecha,fechaActual);
+		 			if (diferenciaFecha<=1) {
+		 				dif=true;
+		 			};
+		 		};
+
+		 		if (dif==true) {
+					$.mobile.changePage("#pageCorrectoY", 'pop',true,true);
+		 		};
+
+
+
+		 	});
 			$.mobile.changePage("#tareas");
-		  
 		}else{
-			alert('Contraseña o usuario incorrecto');
- 
+			alert('Contraseña o usuario incorrecto'); 
  		}
   
 	}).fail(function() {
