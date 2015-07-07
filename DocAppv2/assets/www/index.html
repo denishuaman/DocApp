@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Validacion de usuarios</title>
-  <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
       <script src="jquery.mobile/jquery-1.7.2.min"></script>
-	<script src="jquery.mobile/jquery.mobile-1.4.5.min.js"></script>
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="index.css"/>
 
 </head>
@@ -22,10 +22,10 @@
 		<form id="formulario" >
       
       			<label> Usuario </label>
-      			<input type="text" id="nombredeusuario" name="nombredeusuario" placeholder="Ingrese su usuario">
+      			<input value="admin" type="text" id="nombredeusuario" name="nombredeusuario" placeholder="Ingrese su usuario">
       
       			<label> Password </label>
-     			<input type="password"  id="clave" name="clave" placeholder="Ingrese su contraseña" >
+     			<input value="admin" type="password"  id="clave" name="clave" placeholder="Ingrese su contraseña" >
 
      			<div id="botonLogin"  class="botonFormulario">Iniciar Sesion</div>
       
@@ -50,15 +50,32 @@
 
 	<div data-role="content">	
 		<a class="botonFormulario" href="citaMedica.html" style="display:block;text-decoration:none;color:#000" rel="external">Cita Medica</a>
-		<div id="botonExamenesMedicos"  class="botonFormulario">Ver Examenes Medicos</div>
-		<div id="botonRecetaMedica" class="botonFormulario">Ver Receta Medica</div>
-		<div id="botonDiagnostico" class="botonFormulario">Ver Diagnostico</div>
+		<a class="botonFormulario" href="verExamenMedico.html" style="display:block;text-decoration:none;color:#000" rel="external">Ver Receta Medica</a>
+		<a class="botonFormulario" href="consultarReceta.html" style="display:block;text-decoration:none;color:#000" rel="external">Ver Receta Medica</a>
+		<a class="botonFormulario" href="consultarDiagnostico.html" style="display:block;text-decoration:none;color:#000" rel="external">Consultar Diagnóstico</a>
 	</div>
 
 </div>
 
+<section id="pageIncorrectoY" data-role="dialog">
+			<header data-role="header">
+				<h1>Error</h1>
+			</header>
+			<article data-role="content">
+				<p>RECUERDE: Ud. NO tiene una cita próxima</p>
+				<a href="#tareas" data-role="button">Aceptar</a>
+			</article>
+	</section>
 
-
+	<section id="pageCorrectoY" data-role="dialog">
+			<header data-role="header">
+				<h1>Cita reservada!</h1>
+			</header>
+			<article data-role="content">
+				<p>RECUERDE: Ud. tiene una cita próxima</p>
+				<a href="#tareas"  data-role="button" >Aceptar</a>
+			</article>
+	</section>
 
 
 	<script src="index2.js"></script>
