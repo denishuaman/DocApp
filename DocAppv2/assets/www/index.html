@@ -50,29 +50,21 @@
 
 	<div data-role="content">	
 		<a class="botonFormulario" href="citaMedica.html" style="display:block;text-decoration:none;color:#000" rel="external">Cita Medica</a>
-		<a class="botonFormulario" href="verExamenMedico.html" style="display:block;text-decoration:none;color:#000" rel="external">Ver Receta Medica</a>
+		<a class="botonFormulario" href="verExamenMedico.html" style="display:block;text-decoration:none;color:#000" rel="external">Consultar Examenes Medicos</a>
 		<a class="botonFormulario" href="consultarReceta.html" style="display:block;text-decoration:none;color:#000" rel="external">Ver Receta Medica</a>
 		<a class="botonFormulario" href="consultarDiagnostico.html" style="display:block;text-decoration:none;color:#000" rel="external">Consultar Diagnóstico</a>
 	</div>
 
 </div>
 
-<section id="pageIncorrectoY" data-role="dialog">
-			<header data-role="header">
-				<h1>Error</h1>
-			</header>
-			<article data-role="content">
-				<p>RECUERDE: Ud. NO tiene una cita próxima</p>
-				<a href="#tareas" data-role="button">Aceptar</a>
-			</article>
-	</section>
+
 
 	<section id="pageCorrectoY" data-role="dialog">
 			<header data-role="header">
-				<h1>Cita reservada!</h1>
+				<h1>No se olvide!</h1>
 			</header>
 			<article data-role="content">
-				<p>RECUERDE: Ud. tiene una cita próxima</p>
+				<p id="citaPendiente"></p>
 				<a href="#tareas"  data-role="button" >Aceptar</a>
 			</article>
 	</section>

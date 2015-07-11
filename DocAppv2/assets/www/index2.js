@@ -153,15 +153,18 @@ $('#botonLogin').click(function(event) {
 		 	alert(dniUsuario);
 		 	$.getJSON( "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?",{paciente:dniUsuario}).done(function(respuestaServer){
 		 		var dif;
+		 		var citUlt;
 		 		for (var i = 0; i < respuestaServer.length; i++) {
 		 			var fechaActual = new Date().getFullYear()+"-"+(new Date().getMonth()+1) + "-"+(new Date().getDate());
 		 			var diferenciaFecha = restaFechas(respuestaServer[i].Fecha,fechaActual);
 		 			if (diferenciaFecha<=1) {
+		 				citUlt=respuestaServer[i];
 		 				dif=true;
 		 			};
 		 		};
 
 		 		if (dif==true) {
+		 			$("#citaPendiente").html("<p id=\"citaPendiente\">Recuerde! Usted tiene una cita para el "+citUlt.Fecha+" en "+citUlt.Especialidad+".</p>")
 					$.mobile.changePage("#pageCorrectoY", 'pop',true,true);
 		 		};
 
