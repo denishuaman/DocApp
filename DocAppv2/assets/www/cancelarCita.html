@@ -85,7 +85,7 @@
 				$("#botonCancelarCita").css("display","block");
 	});
 	
-$('#cancelarCita').on('pageinit', function() {
+$('#cancelarCita').on('pagebeforeshow', function() {
 		archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 			
 			$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
