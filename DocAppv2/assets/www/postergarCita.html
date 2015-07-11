@@ -89,22 +89,39 @@
 			});
 	});
 	
+
+function getDia(fec){
+
+				switch(fec) {
+				 	case 'LU': return 1;
+				 		break;
+				 	case 'MA': return 2;
+				 		break;
+				 	case 'MI': return 3;
+				 		break;
+				 	case 'JU': return 4;
+				 		break;
+				 	case 'VI': return 5;
+				 		break;
+				 	case 'SA': return 6;
+				 		break;
+				 }
+
+				 return -1;
+
+
+}
+
 	$('#verCitaPostergarBoton').click(function(event) {
 
 	var yourSelectCita = document.getElementById( "selectCitaPostergar");
 	var selectCita = yourSelectCita.selectedIndex;
-				alert("Imprimiendo el selectDoc="+selectCita);
-					var listaPac = "";
 
-						listaPac = listaPac + "<div id=\"contentCitaPostergar\"><div class=\"contentInformacion\"><div>Cita: "+(selectCita+1)+"</div><div>Turno: "+SelectCancelar[selectCita].Turno+"</div><div>Fecha y Hora: "+SelectCancelar[selectCita].Fecha+" "+SelectCancelar[selectCita].Hora+"</div><div>Especialidad: "+SelectCancelar[selectCita].Especialidad+"</div><div>Doctor: "+SelectCancelar[selectCita].Nombres+" "+SelectCancelar[selectCita].Apellidos+"</div></div></div>";
+				var listaPac = "";
+
+				listaPac = listaPac + "<div id=\"contentCitaPostergar\"><div class=\"contentInformacion\"><div>Cita: "+(selectCita+1)+"</div><div>Turno: "+SelectCancelar[selectCita].Turno+"</div><div>Fecha y Hora: "+SelectCancelar[selectCita].Fecha+" "+SelectCancelar[selectCita].Hora+"</div><div>Especialidad: "+SelectCancelar[selectCita].Especialidad+"</div><div>Doctor: "+SelectCancelar[selectCita].Nombres+" "+SelectCancelar[selectCita].Apellidos+"</div></div></div>";
 				$("#contentCitaPostergar").html(listaPac);
 				$("#botonPostergarCita").css("display","block");
-
-				/*------------------------------------------------------------------*/
-
-//--------------------------
-			var d = new Date();
-//--------------------------
 
 				archivoValidacion = "http://docapp.esy.es/obtenerDisponibilidadMedico.php?jsoncallback=?";
 				$.getJSON(archivoValidacion,{medico:SelectCancelar[selectCita].Codigo}).done(function(respuestaServer){
@@ -113,30 +130,27 @@
 				var selectDia;
 
 				 for (var i = 0; i < respuestaServer.length; i++) {
+					var d = new Date(SelectCancelar[selectCita].Fecha);
 
-				 	switch(respuestaServer[i].Dia) {
-				 		case 'LU': selectDia = 1;
-				 			break;
-				 		case 'MA': selectDia = 2;
-				 			break;
-				 		case 'MI': selectDia = 3;
-				 			break;
-				 		case 'JU': selectDia = 4;
-				 			break;
-				 		case 'VI': selectDia = 5;
-				 			break;
-				 		case 'SA': selectDia = 6;
-				 			break;
-				 	}
-					if (selectDia >= d.getDay()) {
-						d.setDate(d.getDate() + (selectDia-d.getDay()));
+				 	selectDia= getDia(respuestaServer[i].Dia);
+
+				 	var selectCitaPostergarN = getDia(SelectCancelar[selectCita].Dia);
+				 	
+				 	alert("SelectDia: "+selectDia)
+				 	alert("selectCitaPostergar1: "+selectCitaPostergarN);
+
+				 	if (selectDia > selectCitaPostergarN) {
+				 		alert(selectDia+" > "+selectCitaPostergarN);
+						d.setDate(d.getDate() + (selectDia-selectCitaPostergarN) + 1);
 					} else {
-
-						d.setDate(d.getDate() + ((6-d.getDay()))+selectDia+1);
+						alert(selectDia+" <= "+selectCitaPostergarN);
+						d.setDate( d.getDate() + ((6 - selectCitaPostergarN)) + selectDia + 2 );
 					}
+	
 
 					var nomFecha=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-				 	espec = espec + "<option value=\""+nomFecha+"\">"+ respuestaServer[i].Dia+" "+nomFecha+" : "+respuestaServer[i].HoraIni+" "+respuestaServer[i].HoraFin+" </option>";
+
+				 	espec = espec + "<option value=\""+nomFecha+"\">"+ "Dia : " +respuestaServer[i].Dia+" "+nomFecha+" Hora Inicio :  "+respuestaServer[i].HoraIni+" Hora Fin : "+respuestaServer[i].HoraFin+" </option>";
 				 };
 				 espec = espec + "</select></div>";
 
@@ -158,7 +172,7 @@ $('#postergarCita').on('pagebeforeshow', function() {
 			SelectCancelar=respuestaServer;
 
 		 	 for (var i = 0; i < respuestaServer.length; i++) {
-		 	 	espec = espec + "<option value=\""+i+"\">"+ respuestaServer[i].Dia+" "+respuestaServer[i].Fecha+"-"+respuestaServer[i].Hora+" </option>";
+		 	 	espec = espec + "<option value=\""+i+"\">"+ "Día : "+respuestaServer[i].Dia+" Fecha : "+respuestaServer[i].Fecha+" Hora Inicio : "+respuestaServer[i].Hora+" </option>";
 		 	 };
 		 	 espec = espec + "</select></div>";
 
