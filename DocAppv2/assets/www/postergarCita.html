@@ -151,7 +151,7 @@
 				});
 	});
 	
-$('#postergarCita').on('pageinit', function() {
+$('#postergarCita').on('pagebeforeshow', function() {
 		archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 			$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
 		 	var espec = "<div id=\"labelCitaPostergar\">Seleccione la cita<select id=\"selectCitaPostergar\">";
