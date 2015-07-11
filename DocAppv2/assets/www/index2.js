@@ -1,3 +1,4 @@
+
 var dniUsuario=12345678;
 var SelectCancelar;
 
@@ -157,7 +158,7 @@ $('#botonLogin').click(function(event) {
 		 		for (var i = 0; i < respuestaServer.length; i++) {
 		 			var fechaActual = new Date().getFullYear()+"-"+(new Date().getMonth()+1) + "-"+(new Date().getDate());
 		 			var diferenciaFecha = restaFechas(respuestaServer[i].Fecha,fechaActual);
-		 			if (diferenciaFecha<=1) {
+		 			if (diferenciaFecha<=1 && diferenciaFecha>=0) {
 		 				citUlt=respuestaServer[i];
 		 				dif=true;
 		 			};
