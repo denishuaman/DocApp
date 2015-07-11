@@ -43,7 +43,7 @@
 				  <option value="SA">Sabado</option>
 				</select>
 			</div>
-
+			<div id="atras" class="botonFormulario">atras</div>
 			<div id="enviarFormularioDoc" class="botonFormulario">Siguiente</div>
 
 			<div id="seleccionMedico">
@@ -121,6 +121,20 @@
 	</section>
 
 <script>
+
+document.addEventListener("backbutton", function(e){
+	
+    e.preventDefault();
+	alert('pña');
+
+}, false);
+
+$('#atras').click(function(){
+
+window.location.replace('citaMedica.html');
+
+});
+
 
 $('#reservarcitaMedica').on('pagebeforeshow', function() {
  			archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
