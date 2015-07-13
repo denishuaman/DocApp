@@ -1,75 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Validacion de usuarios</title>
+	<meta charset="UTF-8">
+	<title>Validacion de usuarios</title>
 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
-      <script src="jquery.mobile/jquery-1.7.2.min"></script>
+	<script src="jquery.mobile/jquery-1.7.2.min"></script>
 	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="index.css"/>
-
+	<link rel="stylesheet" type="text/css" href="index.css" />
 </head>
 
-<body> 
-
-<div data-role="page" id="inicio">
-
-	
-	<div class="barraTitulo"><img style="margin-left:10px;" align="center" src="iconsuperior.png"/>DocApp</div>
-	
-    
-	<div data-role="content">	
-		<form id="formulario" >
-      
-      			<label> Usuario </label>
-      			<input value="admin" type="text" id="nombredeusuario" name="nombredeusuario" placeholder="Ingrese su usuario">
-      
-      			<label> Password </label>
-     			<input value="admin" type="password"  id="clave" name="clave" placeholder="Ingrese su contraseña" >
-
-     			<div id="botonLogin"  class="botonFormulario">Iniciar Sesion</div>
-      
-    		</form>		
-	</div>
-	 
-</div>
- 
-<div data-role="page" id="tareas">
-
-	<div class="barraTitulo">
-
-		<img style="margin-left:10px;" align="left" src="camp.png"/>
-		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
-		DocApp
-		<img style="margin-rigth:10px;" align="right" src="help.png"/>
-		<img style="margin-rigth:10px;" align="right" src="config.png"/>
-		
+<body>
+	<div data-role="page" id="inicio">
+		<div class="barraTitulo">
+			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			DocApp
 		</div>
-		
-	<div class="barraSubtitulo">Tareas</div>
-
-	<div data-role="content">	
-		<a class="botonFormulario" href="citaMedica.html" style="display:block;text-decoration:none;color:#000" rel="external">Cita Medica</a>
-		<a class="botonFormulario" href="verExamenMedico.html" style="display:block;text-decoration:none;color:#000" rel="external">Consultar Examenes Medicos</a>
-		<a class="botonFormulario" href="consultarReceta.html" style="display:block;text-decoration:none;color:#000" rel="external">Ver Receta Medica</a>
-		<a class="botonFormulario" href="consultarDiagnostico.html" style="display:block;text-decoration:none;color:#000" rel="external">Consultar Diagnóstico</a>
+		<div data-role="content">
+			<form id="formulario">
+				<label> Usuario </label> 
+				<input value="admin" type="text" id="nombredeusuario" name="nombredeusuario" placeholder="Ingrese su usuario"> 
+				<label> Password </label> 
+				<input value="admin" type="password" id="clave" name="clave" placeholder="Ingrese su contraseña">
+				<div id="botonLogin" class="botonFormulario">Iniciar Sesion</div>
+			</form>
+		</div>
 	</div>
-
-</div>
-
-
-
+	<div data-role="page" id="tareas">
+		<div class="barraTitulo">
+			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			DocApp 
+			<img style="margin-rigth: 10px;" align="right" src="help.png" />
+			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+		</div>
+		<div class="barraSubtitulo">Tareas</div>
+		<div data-role="content">
+			<a class="botonFormulario" href="citaMedica.html" style="display: block; text-decoration: none; color: #000" rel="external">Cita Medica</a> 
+			<a class="botonFormulario" href="verExamenMedico.html"style="display: block; text-decoration: none; color: #000" rel="external">Consultar Examenes Medicos</a>
+			<a class="botonFormulario" href="consultarReceta.html" style="display: block; text-decoration: none; color: #000" rel="external">Ver Receta Medica</a> 
+			<a class="botonFormulario" href="consultarDiagnostico.html" style="display: block; text-decoration: none; color: #000" rel="external">Consultar Diagnóstico</a>
+		</div>
+	</div>
 	<section id="pageCorrectoY" data-role="dialog">
-			<header data-role="header">
-				<h1>No se olvide!</h1>
-			</header>
-			<article data-role="content">
-				<p id="citaPendiente"></p>
-				<a href="#tareas"  data-role="button" >Aceptar</a>
-			</article>
+		<header data-role="header">
+			<h1>No se olvide!</h1>
+		</header>
+		<article data-role="content">
+			<p id="citaPendiente"></p>
+			<a href="#tareas" data-role="button">Aceptar</a>
+		</article>
 	</section>
-
-
 	<script src="index2.js"></script>
 </body>
 </html>

@@ -1,95 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Validacion de usuarios</title>
- 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
-      <script src="jquery.mobile/jquery-1.7.2.min"></script>
-	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="index.css"/>
+<meta charset="UTF-8">
+<title>Validacion de usuarios</title>
+<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+<script src="jquery.mobile/jquery-1.7.2.min"></script>
+<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css" />
 
 </head>
 
 <body>
 
-<div data-role="page" id="verCitaReceta">
-
-	<div class="barraTitulo">
-
-		<img style="margin-left:10px;" align="left" src="camp.png"/>
-		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
-		DocApp
-		<img style="margin-rigth:10px;" align="right" src="help.png"/>
-		<img style="margin-rigth:10px;" align="right" src="config.png"/>
-		
+	<div data-role="page" id="verCitaReceta">
+		<div class="barraTitulo">
+			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			DocApp
+			<img style="margin-rigth: 10px;" align="right" src="help.png" />
+			<img style="margin-rigth: 10px;" align="right" src="config.png" />
 		</div>
-		
-	<div class="barraSubtitulo">Ver Cita Medica</div>
-
-	<div data-role="content">	
-		<div id="verCitaMedicaLista"></div>
-	</div>
-
-</div>
-
-<div data-role="page" id="verRecetaMedica">
-
-	<div class="barraTitulo">
-
-		<img style="margin-left:10px;" align="left" src="camp.png"/>
-		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
-		DocApp
-		<img style="margin-rigth:10px;" align="right" src="help.png"/>
-		<img style="margin-rigth:10px;" align="right" src="config.png"/>
-		
+		<div class="barraSubtitulo">Ver Cita Medica</div>
+		<div data-role="content">
+			<div id="verCitaMedicaLista"></div>
 		</div>
-		
-	<div class="barraSubtitulo">Ver Cita Medica</div>
-
-	<div data-role="content">	
-		<div id="labelRecetaMedica"></div>
 	</div>
+	<div data-role="page" id="verRecetaMedica">
+		<div class="barraTitulo">
+			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			DocApp 
+			<img style="margin-rigth: 10px;" align="right" src="help.png" />
+			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+		</div>
+		<div class="barraSubtitulo">Ver Cita Medica</div>
+		<div data-role="content">
+			<div id="labelRecetaMedica"></div>
+		</div>
+	</div>
+	<script src="index2.js"></script>
+	<script type="text/javascript">
+		var selReceta;
+		$(".botonFormulario").live("click",
+				function() {
+					$.mobile.changePage('#verRecetaMedica');
+					$("#labelRecetaMedica").html("<div>- Receta:</div><div class=\"contentInformacion\">"+ $(this).attr("value") + "</div>");
+				});
 
-</div>
-
-<script src="index2.js"></script>
- <script type="text/javascript">
-
- var selReceta;
-
- $ (".botonFormulario"). live ("click", function () {
- 	$.mobile.changePage('#verRecetaMedica');
-
- 	$("#labelRecetaMedica").html("<div>- Receta:</div><div class=\"contentInformacion\">"+$(this).attr("value")+"</div>");
-
-});
-
-
-
-$('#verCitaReceta').on('pagebeforeshow', function() {
-
-	archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
-
-	$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
-					var listaPac = "<div id=\"verCitaMedicaLista\">";
-
-				for (var i = 0; i < respuestaServer.length; i++) {
-					if(respuestaServer[i].Receta!=null){
-					listaPac = listaPac + "<div class=\"contentInformacion\"><div>Cita: "+(i+1)+"</div><div>Turno: "+respuestaServer[i].Turno+"</div><div>Fecha y Hora: "+respuestaServer[i].Fecha+" "+respuestaServer[i].Hora+"</div><div>Especialidad: "+respuestaServer[i].Especialidad+"</div><div>Doctor: "+respuestaServer[i].Nombres+" "+respuestaServer[i].Apellidos+"</div><div value=\""+respuestaServer[i].Receta+"\" class=\"botonFormulario\">Ver Receta</div></div>";}
-				}
-
-				listaPac = listaPac + "</div>";
-
-				$("#verCitaMedicaLista").html(listaPac);
-				$(".botonFormulario").trigger("create");
-					
-    		}).fail(function() {
-		    	alert( "Ocurrio un error en la conexion" );
-		 	});
-});
-
- 	
- </script>
+		$('#verCitaReceta').on('pagebeforeshow',
+						function() {
+							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
+							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
+											function(respuestaServer) {
+												var listaPac = "<div id=\"verCitaMedicaLista\">";
+												for (var i = 0; i < respuestaServer.length; i++) {
+													if (respuestaServer[i].Receta != null) {
+														listaPac = listaPac
+																+ "<div class=\"contentInformacion\"><div>Cita: "
+																+ (i + 1)
+																+ "</div><div>Turno: "
+																+ respuestaServer[i].Turno
+																+ "</div><div>Fecha y Hora: "
+																+ respuestaServer[i].Fecha
+																+ " "
+																+ respuestaServer[i].Hora
+																+ "</div><div>Especialidad: "
+																+ respuestaServer[i].Especialidad
+																+ "</div><div>Doctor: "
+																+ respuestaServer[i].Nombres
+																+ " "
+																+ respuestaServer[i].Apellidos
+																+ "</div><div value=\""+respuestaServer[i].Receta+"\" class=\"botonFormulario\">Ver Receta</div></div>";
+													}
+												}
+												listaPac = listaPac + "</div>";
+												$("#verCitaMedicaLista").html(listaPac);
+												$(".botonFormulario").trigger("create");
+											}).fail(
+												function() {
+													alert("Ocurrio un error en la conexion");
+												});
+						});
+	</script>
 </body>
-
 </html>

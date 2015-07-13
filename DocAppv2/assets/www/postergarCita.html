@@ -1,190 +1,193 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Validacion de usuarios</title>
+	<meta charset="UTF-8">
+	<title>Validacion de usuarios</title>
 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
-      <script src="jquery.mobile/jquery-1.7.2.min"></script>
+	<script src="jquery.mobile/jquery-1.7.2.min"></script>
 	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="index.css"/>
-
+	<link rel="stylesheet" type="text/css" href="index.css" />
 </head>
-
-<body> 
-
- 
-<div data-role="page" id="postergarCita">
-
-	<div class="barraTitulo">
-
-		<img style="margin-left:10px;" align="left" src="camp.png"/>
-		<img style="margin-left:10px;" align="center" src="iconsuperior.png"/>
-		DocApp
-		<img style="margin-rigth:10px;" align="right" src="help.png"/>
-		<img style="margin-rigth:10px;" align="right" src="config.png"/>
-		
-	</div>
-		
-	<div class="barraSubtitulo">Postergar Cita Medica</div>
-
-	<div data-role="content">
-		<div id="labelCitaPostergar"></div>
-		<div id="verCitaPostergarBoton" class="botonFormulario">Ver</div>
-		<br/>
-		<div id="contentCitaPostergar">
+<body>
+	<div data-role="page" id="postergarCita">
+		<div class="barraTitulo">
+			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			DocApp 
+			<img style="margin-rigth: 10px;" align="right" src="help.png" />
+			<img style="margin-rigth: 10px;" align="right" src="config.png" />
 		</div>
-
-
-
-		<div id="labelFechaPostergar"></div>
-
-		<div id="botonPostergarCita" style="display:none" class="botonFormulario">Postergar Cita</div>
+		<div class="barraSubtitulo">Postergar Cita Medica</div>
+		<div data-role="content">
+			<div id="labelCitaPostergar"></div>
+			<div id="verCitaPostergarBoton" class="botonFormulario">Ver</div>
+			<br />
+			<div id="contentCitaPostergar"></div>
+			<div id="labelFechaPostergar"></div>
+			<div id="botonPostergarCita" style="display: none" class="botonFormulario">Postergar Cita</div>
+		</div>
 	</div>
-</div>
 
-<section id="pageIncorrecto" data-role="dialog">
-			<header data-role="header">
-				<h1>Error</h1>
-			</header>
-			<article data-role="content">
-				<p>La cita no ha podido ser postergada</p>
-				<a href="#postergarCita" data-role="button">Aceptar</a>
-			</article>
+	<section id="pageIncorrecto" data-role="dialog">
+		<header data-role="header">
+			<h1>Error</h1>
+		</header>
+		<article data-role="content">
+			<p>La cita no ha podido ser postergada</p>
+			<a href="#postergarCita" data-role="button">Aceptar</a>
+		</article>
 	</section>
 
 	<section id="pageCorrecto" data-role="dialog">
-			<header data-role="header">
-				<h1>Cita reservada!</h1>
-			</header>
-			<article data-role="content">
-				<p>La cita fue postergada exitosamente!</p>
-				<a href="#postergarCita"  data-role="button" >Aceptar</a>
-			</article>
+		<header data-role="header">
+			<h1>Cita reservada!</h1>
+		</header>
+		<article data-role="content">
+			<p>La cita fue postergada exitosamente!</p>
+			<a href="#postergarCita" data-role="button">Aceptar</a>
+		</article>
 	</section>
+	<script src="index2.js"></script>
+	<script>
+		$('#botonPostergarCita').click(
+						function(event) {
+							archivoValidacion = "http://docapp.esy.es/postergarCita.php?jsoncallback=?";
+							var ySelectCita = document.getElementById("selectFechaPostergar");
+							var selectCita = ySelectCita.selectedIndex;
+							var fechaN = ySelectCita.options[selectCita].value;
+							alert(SelectCancelar[selectCita].Codigo);
 
+							$.getJSON(archivoValidacion,{fechaNueva : fechaN, paciente : dniUsuario, medico : SelectCancelar[selectCita].Codigo, fechaAntigua : SelectCancelar[selectCita].Fecha, paciente : dniUsuario}).done(
+											function(respuestaServer) {
+												//alert("function");
+												if (respuestaServer.ok == 1) {
+													$.mobile.changePage('#pageCorrecto','pop', true, true);
+												} else {
+													$.mobile.changePage('#pageIncorrecto','pop', true, true);
+												}
+											});
+						});
 
-<script src="index2.js"></script>
-<script>
+		function getDia(fec) {
 
-	$('#botonPostergarCita').click(function(event) {
-		
-		archivoValidacion = "http://docapp.esy.es/postergarCita.php?jsoncallback=?";
+			switch (fec) {
+			case 'LU':
+				return 1;
+				break;
+			case 'MA':
+				return 2;
+				break;
+			case 'MI':
+				return 3;
+				break;
+			case 'JU':
+				return 4;
+				break;
+			case 'VI':
+				return 5;
+				break;
+			case 'SA':
+				return 6;
+				break;
+			}
 
-		var ySelectCita = document.getElementById( "selectFechaPostergar");
-				
+			return -1;
 
+		}
 
-		var selectCita = ySelectCita.selectedIndex;
-		var fechaN = ySelectCita.options[selectCita].value;
-		alert(SelectCancelar[selectCita].Codigo);
+		$('#verCitaPostergarBoton').click(
+						function(event) {
 
-			$.getJSON(archivoValidacion,{fechaNueva:fechaN,paciente:dniUsuario,medico:SelectCancelar[selectCita].Codigo,fechaAntigua:SelectCancelar[selectCita].Fecha,paciente:dniUsuario}).done(function(respuestaServer){
-				//alert("function");
-			if(respuestaServer.ok==1){
-     				$.mobile.changePage('#pageCorrecto', 'pop',true,true);
-     			}else{ 
-     				$.mobile.changePage('#pageIncorrecto', 'pop',true,true);
-     			}
-			
-			});
-	});
-	
+							var yourSelectCita = document.getElementById("selectCitaPostergar");
+							var selectCita = yourSelectCita.selectedIndex;
+							var listaPac = "";
 
-function getDia(fec){
+							listaPac = listaPac
+									+ "<div id=\"contentCitaPostergar\"><div class=\"contentInformacion\"><div>Cita: "
+									+ (selectCita + 1) + "</div><div>Turno: "
+									+ SelectCancelar[selectCita].Turno
+									+ "</div><div>Fecha y Hora: "
+									+ SelectCancelar[selectCita].Fecha + " "
+									+ SelectCancelar[selectCita].Hora
+									+ "</div><div>Especialidad: "
+									+ SelectCancelar[selectCita].Especialidad
+									+ "</div><div>Doctor: "
+									+ SelectCancelar[selectCita].Nombres + " "
+									+ SelectCancelar[selectCita].Apellidos
+									+ "</div></div></div>";
+							$("#contentCitaPostergar").html(listaPac);
+							$("#botonPostergarCita").css("display", "block");
 
-				switch(fec) {
-				 	case 'LU': return 1;
-				 		break;
-				 	case 'MA': return 2;
-				 		break;
-				 	case 'MI': return 3;
-				 		break;
-				 	case 'JU': return 4;
-				 		break;
-				 	case 'VI': return 5;
-				 		break;
-				 	case 'SA': return 6;
-				 		break;
-				 }
+							archivoValidacion = "http://docapp.esy.es/obtenerDisponibilidadMedico.php?jsoncallback=?";
+							$.getJSON(archivoValidacion,{medico : SelectCancelar[selectCita].Codigo}).done(
+											function(respuestaServer) {
+												var espec = "<div id=\"labelFechaPostergar\">Seleccione la cita<select id=\"selectFechaPostergar\">";
+												var selectDia;
+												for (var i = 0; i < respuestaServer.length; i++) {
+													var d = new Date(SelectCancelar[selectCita].Fecha);
+													selectDia = getDia(respuestaServer[i].Dia);
+													var selectCitaPostergarN = getDia(SelectCancelar[selectCita].Dia);
+													alert("SelectDia: "+ selectDia)
+													alert("selectCitaPostergar1: "+ selectCitaPostergarN);
+													
+													if (selectDia > selectCitaPostergarN) {
+														alert(selectDia+ " > "+ selectCitaPostergarN);
+														d.setDate(d.getDate()+ (selectDia - selectCitaPostergarN)+ 1);
+													} else {
+														alert(selectDia+ " <= "+ selectCitaPostergarN);
+														d.setDate(d.getDate()+ ((6 - selectCitaPostergarN))+ selectDia+ 2);
+													}
 
-				 return -1;
+													var nomFecha = d.getFullYear()+ "-"+ (d.getMonth() + 1)+ "-" + d.getDate();
 
+													espec = espec
+															+ "<option value=\""+nomFecha+"\">"
+															+ "Dia : "
+															+ respuestaServer[i].Dia
+															+ " "
+															+ nomFecha
+															+ " Hora Inicio :  "
+															+ respuestaServer[i].HoraIni
+															+ " Hora Fin : "
+															+ respuestaServer[i].HoraFin
+															+ " </option>";
+												};
+												espec = espec+ "</select></div>";
+												$("#labelFechaPostergar").html(espec);
+												$.mobile.changePage("#postergarCita");
+												$("#labelFechaPostergar").trigger("create");
+											}).fail(function() {
+														alert('Error');
+													});
+						});
 
-}
+		$('#postergarCita').on('pagebeforeshow',
+						function() {
+							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
+							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
+											function(respuestaServer) {
+												var espec = "<div id=\"labelCitaPostergar\">Seleccione la cita<select id=\"selectCitaPostergar\">";
+												SelectCancelar = respuestaServer;
 
-	$('#verCitaPostergarBoton').click(function(event) {
-
-	var yourSelectCita = document.getElementById( "selectCitaPostergar");
-	var selectCita = yourSelectCita.selectedIndex;
-
-				var listaPac = "";
-
-				listaPac = listaPac + "<div id=\"contentCitaPostergar\"><div class=\"contentInformacion\"><div>Cita: "+(selectCita+1)+"</div><div>Turno: "+SelectCancelar[selectCita].Turno+"</div><div>Fecha y Hora: "+SelectCancelar[selectCita].Fecha+" "+SelectCancelar[selectCita].Hora+"</div><div>Especialidad: "+SelectCancelar[selectCita].Especialidad+"</div><div>Doctor: "+SelectCancelar[selectCita].Nombres+" "+SelectCancelar[selectCita].Apellidos+"</div></div></div>";
-				$("#contentCitaPostergar").html(listaPac);
-				$("#botonPostergarCita").css("display","block");
-
-				archivoValidacion = "http://docapp.esy.es/obtenerDisponibilidadMedico.php?jsoncallback=?";
-				$.getJSON(archivoValidacion,{medico:SelectCancelar[selectCita].Codigo}).done(function(respuestaServer){
-				var espec = "<div id=\"labelFechaPostergar\">Seleccione la cita<select id=\"selectFechaPostergar\">";
-					
-				var selectDia;
-
-				 for (var i = 0; i < respuestaServer.length; i++) {
-					var d = new Date(SelectCancelar[selectCita].Fecha);
-
-				 	selectDia= getDia(respuestaServer[i].Dia);
-
-				 	var selectCitaPostergarN = getDia(SelectCancelar[selectCita].Dia);
-				 	
-				 	alert("SelectDia: "+selectDia)
-				 	alert("selectCitaPostergar1: "+selectCitaPostergarN);
-
-				 	if (selectDia > selectCitaPostergarN) {
-				 		alert(selectDia+" > "+selectCitaPostergarN);
-						d.setDate(d.getDate() + (selectDia-selectCitaPostergarN) + 1);
-					} else {
-						alert(selectDia+" <= "+selectCitaPostergarN);
-						d.setDate( d.getDate() + ((6 - selectCitaPostergarN)) + selectDia + 2 );
-					}
-	
-
-					var nomFecha=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-
-				 	espec = espec + "<option value=\""+nomFecha+"\">"+ "Dia : " +respuestaServer[i].Dia+" "+nomFecha+" Hora Inicio :  "+respuestaServer[i].HoraIni+" Hora Fin : "+respuestaServer[i].HoraFin+" </option>";
-				 };
-				 espec = espec + "</select></div>";
-
-
-
-				$("#labelFechaPostergar").html(espec);
-				$.mobile.changePage("#postergarCita");
-				$("#labelFechaPostergar").trigger("create");
-				}).fail(function(){
-
-				alert('Error');
-				});
-	});
-	
-$('#postergarCita').on('pagebeforeshow', function() {
-		archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
-			$.getJSON(archivoValidacion,{paciente:dniUsuario}).done(function(respuestaServer){
-		 	var espec = "<div id=\"labelCitaPostergar\">Seleccione la cita<select id=\"selectCitaPostergar\">";
-			SelectCancelar=respuestaServer;
-
-		 	 for (var i = 0; i < respuestaServer.length; i++) {
-		 	 	espec = espec + "<option value=\""+i+"\">"+ "Día : "+respuestaServer[i].Dia+" Fecha : "+respuestaServer[i].Fecha+" Hora Inicio : "+respuestaServer[i].Hora+" </option>";
-		 	 };
-		 	 espec = espec + "</select></div>";
-
-
-			$("#labelCitaPostergar").html(espec);
-			$.mobile.changePage("#postergarCita");
-			$("#labelCitaPostergar").trigger("create");
-			}).fail(function(){
-
-				alert('Error');
-			});
-});
-</script>
+												for (var i = 0; i < respuestaServer.length; i++) {
+													espec = espec
+															+ "<option value=\""+i+"\">"
+															+ "Día : "
+															+ respuestaServer[i].Dia
+															+ " Fecha : "
+															+ respuestaServer[i].Fecha
+															+ " Hora Inicio : "
+															+ respuestaServer[i].Hora
+															+ " </option>";
+												};
+												espec = espec+ "</select></div>";
+												$("#labelCitaPostergar").html(espec);
+												$.mobile.changePage("#postergarCita");
+												$("#labelCitaPostergar").trigger("create");
+											}).fail(function() {
+														alert('Error');
+													});
+						});
+	</script>
 </body>
 </html>
