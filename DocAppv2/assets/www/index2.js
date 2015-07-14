@@ -131,8 +131,7 @@ $('#botonLogin').click(
 										if (respuestaServer.validacion == "ok") {
 											// / si la validacion es correcta
 											dniUsuario = respuestaServer.dni;
-											alert(dniUsuario);
-											$.getJSON("http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?",{paciente : dniUsuario}).done(
+ 											$.getJSON("http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?",{paciente : dniUsuario}).done(
 															function(respuestaServer) {
 																var dif;
 																var citUlt;

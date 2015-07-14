@@ -12,11 +12,11 @@
 <body>
 	<div data-role="page" id="citaMedica">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Cita Medica</div>
 		<div data-role="content">
@@ -27,4 +27,13 @@
 		</div>
 	</div>
 </body>
+<script>
+
+$('#botonback').click(function(){
+
+		window.location.replace('index.html#tareas');
+
+
+});
+</script>
 </html>

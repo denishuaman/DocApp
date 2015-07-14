@@ -14,11 +14,11 @@
 
 	<div data-role="page" id="verCitaReceta">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback1" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
-			DocApp
+			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Ver Cita Medica</div>
 		<div data-role="content">
@@ -27,11 +27,11 @@
 	</div>
 	<div data-role="page" id="verRecetaMedica">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback2" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Ver Cita Medica</div>
 		<div data-role="content">
@@ -41,6 +41,21 @@
 	<script src="index2.js"></script>
 	<script type="text/javascript">
 		var selReceta;
+
+	$('#botonback2').click(function(){
+
+			window.location.replace('consultarReceta.html');
+
+
+	});
+
+	$('#botonback1').click(function(){
+
+			window.location.replace('index.html#tareas');
+
+
+	});
+
 		$(".botonFormulario").live("click",
 				function() {
 					$.mobile.changePage('#verRecetaMedica');

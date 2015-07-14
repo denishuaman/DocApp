@@ -13,11 +13,11 @@
 
 	<div data-role="page" id="verExamenMedico">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Ver Examenes Medicos</div>
 		<div data-role="content">
@@ -27,28 +27,13 @@
 	<script src="index2.js"></script>
 	<script type="text/javascript">
 		var selReceta;
-		function downloadFile() {
-			window.requestFileSystem(LocalFileSystem.PERSISTENT,0,
-							function onFileSystemSuccess(fileSystem) {
-								fileSystem.root.getFile("dummy.html",{create : true,exclusive : false},
-												function gotFileEntry(fileEntry) {
-													var sPath = fileEntry.fullPath.replace("dummy.html","");
-													var fileTransfer = new FileTransfer();
-													fileEntry.remove();
-													fileTransfer.download(
-																	"http://www.w3.org/2011/web-apps-ws/papers/Nitobi.pdf",sPath+ "theFile.pdf",
-																	function(theFile) {
-																		console.log("download complete: "+ theFile.toURI());
-																		showLink(theFile.toURI());
-																	},
-																	function(error) {
-																		console.log("download error source "+ error.source);
-																		console.log("download error target "+ error.target);
-																		console.log("upload error code: "+ error.code);
-																	});
-												}, fail);
-							}, fail);
-		};
+
+		$('#botonback').click(function(){
+
+			window.location.replace('index.html#tareas');
+
+
+	});
 
 		$(".botonFormulario").live("click", function() {
 			$.mobile.changePage('#verRecetaMedica');
@@ -71,7 +56,7 @@
 															+ respuestaServer[i].Fecha
 															+ "</div><div>Tipo de analisis: "
 															+ respuestaServer[i].Especialidad
-															+ "</div><div onclick=\"downloadFile()\" class=\"botonFormulario\">Descargar Examen en PDF</div></div>";
+															+ "</div><a style=\"display: block; text-decoration: none; color: #000\" href=\"" +respuestaServer[i].Descarga+"\" class=\"botonFormulario\">Descargar Examen en PDF</a></div>";
 												}
 
 												listaPac = listaPac + "</div>";

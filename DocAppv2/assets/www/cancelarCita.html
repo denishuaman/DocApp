@@ -12,11 +12,11 @@
 
 	<div data-role="page" id="cancelarCita">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" />
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Cancelar Cita Médica</div>
 		<div data-role="content">
@@ -25,6 +25,7 @@
 			<br />
 			<div id="contentCitaCancelar"></div>
 			<div id="botonCancelarCita" style="display: none" class="botonFormulario">Cancelar Cita</div>
+			<div id="botonback2" class="botonRegresar">Regresar</div>
 		</div>
 	</div>
 	<section id="pageIncorrecto" data-role="dialog">
@@ -46,7 +47,21 @@
 			<a href="#cancelarCita" data-role="button">Aceptar</a>
 		</article>
 	</section>
+	<footer>Todos los derechos reservador a  ©DocApp  2015</footer>
 	<script>
+
+	$('#botonback').click(function(){
+
+		window.location.replace('citaMedica.html');
+
+
+	});
+
+	$('#botonback2').click(function(){
+			window.location.replace('citaMedica.html');
+
+
+});
 		$('#botonCancelarCita').click(
 						function(event) {
 							archivoValidacion = "http://docapp.esy.es/cancelarCita.php?jsoncallback=?";
@@ -72,7 +87,7 @@
 							var yourSelectCita = document
 									.getElementById("selectCitaCancelar");
 							var selectCita = yourSelectCita.selectedIndex;
-							alert("Imprimiendo el selectDoc=" + selectCita);
+
 							var listaPac = "";
 
 							listaPac = listaPac
@@ -99,7 +114,7 @@
 											function(respuestaServer) {
 												var espec = "<div id=\"labelCitaCancelar\">Seleccione la cita<select id=\"selectCitaCancelar\">";
 												SelectCancelar = respuestaServer;
-												alert('aa'+ respuestaServer.length);
+
 												for (var i = 0; i < respuestaServer.length; i++) {
 													espec = espec
 															+ "<option value=\""+i+"\">"
@@ -121,119 +136,4 @@
 	</script>
 </body>
 	<script src="index2.js"></script>
-</html>
-
-</head>
-
-<body>
-
-	<div data-role="page" id="cancelarCita">
-		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" />
-			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
-			DocApp
-			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
-		</div>
-		<div class="barraSubtitulo">Cancelar Cita Médica</div>
-		<div data-role="content">
-			<div id="labelCitaCancelar"></div>
-			<div id="verCitaCancelarBoton" class="botonFormulario">Ver</div>
-			<br />
-			<div id="contentCitaCancelar"></div>
-			<div id="botonCancelarCita" style="display: none" class="botonFormulario">Cancelar Cita</div>
-		</div>
-	</div>
-	<section id="pageIncorrecto" data-role="dialog">
-		<header data-role="header">
-			<h1>Error</h1>
-		</header>
-		<article data-role="content">
-			<p>La cita no ha podido ser cancelada</p>
-			<a href="#cancelarCita" data-role="button">Aceptar</a>
-		</article>
-	</section>
-	<section id="pageCorrecto" data-role="dialog">
-		<header data-role="header">
-			<h1>Cita reservada!</h1>
-		</header>
-		<article data-role="content">
-			<p>La cita fue cancelada exitosamente!</p>
-			<a href="#cancelarCita" data-role="button">Aceptar</a>
-		</article>
-	</section>
-	<script>
-		$('#botonCancelarCita').click(
-						function(event) {
-							archivoValidacion = "http://docapp.esy.es/cancelarCita.php?jsoncallback=?";
-							var yourSelectCita = document.getElementById("selectCitaCancelar");
-							var selectCita = yourSelectCita.selectedIndex;
-							$.getJSON(archivoValidacion, {
-								medico : SelectCancelar[selectCita].Codigo,
-								fecha : SelectCancelar[selectCita].Fecha,
-								paciente : dniUsuario
-							}).done(
-									function(respuestaServer) {
-
-										if (respuestaServer.ok == 1) {
-											$.mobile.changePage('#pageCorrecto', 'pop',true, true);
-											yourSelectCita.remove(selectCita);
-										} else {
-											$.mobile.changePage('#pageIncorrecto', 'pop',true, true);
-										}
-									});
-						}); 
-
-		$('#verCitaCancelarBoton').click(
-						function(event) {
-							var yourSelectCita = document.getElementById("selectCitaCancelar");
-							var selectCita = yourSelectCita.selectedIndex;
-							alert("Imprimiendo el selectDoc=" + selectCita);
-							var listaPac = "";
-							listaPac = listaPac
-									+ "<div id=\"contentCitaCancelar\"><div class=\"contentInformacion\"><div>Cita: "
-									+ (selectCita + 1) + "</div><div>Turno: "
-									+ SelectCancelar[selectCita].Turno
-									+ "</div><div>Fecha y Hora: "
-									+ SelectCancelar[selectCita].Fecha + " "
-									+ SelectCancelar[selectCita].Hora
-									+ "</div><div>Especialidad: "
-									+ SelectCancelar[selectCita].Especialidad
-									+ "</div><div>Doctor: "
-									+ SelectCancelar[selectCita].Nombres + " "
-									+ SelectCancelar[selectCita].Apellidos
-									+ "</div></div></div>";
-							$("#contentCitaCancelar").html(listaPac);
-							$("#botonCancelarCita").css("display", "block");
-						});
-
-		$('#cancelarCita').on('pageinit',
-						function() {
-							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
-							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
-											function(respuestaServer) {
-												var espec = "<div id=\"labelCitaCancelar\">Seleccione la cita<select id=\"selectCitaCancelar\">";
-												SelectCancelar = respuestaServer;
-												alert('aa'+ respuestaServer.length);
-												for (var i = 0; i < respuestaServer.length; i++) {
-													espec = espec
-															+ "<option value=\""+i+"\">"
-															+ respuestaServer[i].Dia
-															+ " "
-															+ respuestaServer[i].Fecha
-															+ "-"
-															+ respuestaServer[i].Hora
-															+ " </option>";
-												};
-												espec = espec+ "</select></div>";
-												$("#labelCitaCancelar").html(espec);
-												$.mobile.changePage("#cancelarCita");
-												$("#labelCitaCancelar").trigger("create");
-											}).fail(function() {
-										alert('Error');
-									});
-						});
-	</script>
-</body>
-<script src="index2.js"></script>
 </html>

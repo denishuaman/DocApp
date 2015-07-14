@@ -7,17 +7,19 @@
 	<script src="jquery.mobile/jquery-1.7.2.min"></script>
 	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="index.css" />
+	<script src="cordova-1.9.0.js"></script>
+
 </head>
 
 <body>
 
 	<div data-role="page" id="reservarcitaMedica">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 
 		<div class="barraSubtitulo">Reservar Cita Medica</div>
@@ -34,21 +36,21 @@
 						<option value="SA">Sabado</option>
 					</select>
 				</div>
-				<div id="atras" class="botonFormulario">atras</div>
-				<div id="enviarFormularioDoc" class="botonFormulario">Siguiente</div>
+ 				<div id="enviarFormularioDoc" class="botonFormulario">Siguiente</div>
 				<div id="seleccionMedico"></div>
 				<div id="botonRegistrarCM" style="display: none;" class="botonFormulario">Continuar</div>
+				<div id="botonback2" class="botonRegresar">Regresar</div>
 			</div>
 		</div>
 	</div>
 
 	<div data-role="page" id="registroFinalMedico">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+						<img style="margin-left: 10px;" align="left" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Reservar Cita Medica</div>
 		<div data-role="content">
@@ -91,18 +93,23 @@
 	</section>
 
 	<script>
-		document.addEventListener("backbutton", 
-				function(e) {
-					e.preventDefault();
-					alert('pña');
-				}, false);
 
-		$('#atras').click(
-				function() {
-					window.location.replace('citaMedica.html');
-				});
+$('#botonback2').click(function(){
+			window.location.replace('citaMedica.html');
+
+
+});
+
+$('#botonback').click(function(){
+
+		window.location.replace('citaMedica.html');
+
+
+});
+
 		$('#reservarcitaMedica').on('pagebeforeshow',
 						function() {
+
 							archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
 							$.getJSON(archivoValidacion).done(
 											function(respuestaServer) {

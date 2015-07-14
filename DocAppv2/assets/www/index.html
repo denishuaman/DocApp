@@ -12,7 +12,7 @@
 <body>
 	<div data-role="page" id="inicio">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
+			<img style="margin-left: 10px;" align="center"  src="iconsuperior.png" />
 			DocApp
 		</div>
 		<div data-role="content">
@@ -22,16 +22,18 @@
 				<label> Password </label> 
 				<input value="admin" type="password" id="clave" name="clave" placeholder="Ingrese su contraseña">
 				<div id="botonLogin" class="botonFormulario">Iniciar Sesion</div>
+
 			</form>
+
 		</div>
 	</div>
 	<div data-role="page" id="tareas">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Tareas</div>
 		<div data-role="content">
@@ -41,6 +43,8 @@
 			<a class="botonFormulario" href="consultarDiagnostico.html" style="display: block; text-decoration: none; color: #000" rel="external">Consultar Diagnóstico</a>
 		</div>
 	</div>
+
+
 	<section id="pageCorrectoY" data-role="dialog">
 		<header data-role="header">
 			<h1>No se olvide!</h1>
@@ -50,6 +54,14 @@
 			<a href="#tareas" data-role="button">Aceptar</a>
 		</article>
 	</section>
+
+	<script>
+
+	$('#botonback').click(function(){
+		window.location.replace('index.html#inicio');
+	});
+
+	</script>
 	<script src="index2.js"></script>
 </body>
 </html>

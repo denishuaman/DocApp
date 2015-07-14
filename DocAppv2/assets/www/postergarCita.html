@@ -11,11 +11,11 @@
 <body>
 	<div data-role="page" id="postergarCita">
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" src="camp.png" /> 
+			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
-			<img style="margin-rigth: 10px;" align="right" src="config.png" />
+
 		</div>
 		<div class="barraSubtitulo">Postergar Cita Medica</div>
 		<div data-role="content">
@@ -25,6 +25,7 @@
 			<div id="contentCitaPostergar"></div>
 			<div id="labelFechaPostergar"></div>
 			<div id="botonPostergarCita" style="display: none" class="botonFormulario">Postergar Cita</div>
+			<div id="botonback2" class="botonRegresar">Regresar</div>
 		</div>
 	</div>
 
@@ -49,17 +50,30 @@
 	</section>
 	<script src="index2.js"></script>
 	<script>
+
+	$('#botonback2').click(function(){
+			window.location.replace('citaMedica.html');
+
+
+});
+
+	$('#botonback').click(function(){
+
+		window.location.replace('citaMedica.html');
+
+
+	});
+
 		$('#botonPostergarCita').click(
 						function(event) {
 							archivoValidacion = "http://docapp.esy.es/postergarCita.php?jsoncallback=?";
 							var ySelectCita = document.getElementById("selectFechaPostergar");
 							var selectCita = ySelectCita.selectedIndex;
 							var fechaN = ySelectCita.options[selectCita].value;
-							alert(SelectCancelar[selectCita].Codigo);
-
+ 
 							$.getJSON(archivoValidacion,{fechaNueva : fechaN, paciente : dniUsuario, medico : SelectCancelar[selectCita].Codigo, fechaAntigua : SelectCancelar[selectCita].Fecha, paciente : dniUsuario}).done(
 											function(respuestaServer) {
-												//alert("function");
+
 												if (respuestaServer.ok == 1) {
 													$.mobile.changePage('#pageCorrecto','pop', true, true);
 												} else {
@@ -127,15 +141,11 @@
 													var d = new Date(SelectCancelar[selectCita].Fecha);
 													selectDia = getDia(respuestaServer[i].Dia);
 													var selectCitaPostergarN = getDia(SelectCancelar[selectCita].Dia);
-													alert("SelectDia: "+ selectDia)
-													alert("selectCitaPostergar1: "+ selectCitaPostergarN);
-													
+
 													if (selectDia > selectCitaPostergarN) {
-														alert(selectDia+ " > "+ selectCitaPostergarN);
-														d.setDate(d.getDate()+ (selectDia - selectCitaPostergarN)+ 1);
+ 														d.setDate(d.getDate()+ (selectDia - selectCitaPostergarN)+ 1);
 													} else {
-														alert(selectDia+ " <= "+ selectCitaPostergarN);
-														d.setDate(d.getDate()+ ((6 - selectCitaPostergarN))+ selectDia+ 2);
+ 														d.setDate(d.getDate()+ ((6 - selectCitaPostergarN))+ selectDia+ 2);
 													}
 
 													var nomFecha = d.getFullYear()+ "-"+ (d.getMonth() + 1)+ "-" + d.getDate();
@@ -182,7 +192,7 @@
 												};
 												espec = espec+ "</select></div>";
 												$("#labelCitaPostergar").html(espec);
-												$.mobile.changePage("#postergarCita");
+
 												$("#labelCitaPostergar").trigger("create");
 											}).fail(function() {
 														alert('Error');
