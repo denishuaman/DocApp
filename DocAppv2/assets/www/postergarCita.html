@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div data-role="page" id="postergarCita">
+		<div class="loading"></div>
 		<div class="barraTitulo">
 			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
@@ -111,7 +112,7 @@
 
 		$('#verCitaPostergarBoton').click(
 						function(event) {
-
+							showLoading();
 							var yourSelectCita = document.getElementById("selectCitaPostergar");
 							var selectCita = yourSelectCita.selectedIndex;
 							var listaPac = "";
@@ -135,6 +136,7 @@
 							archivoValidacion = "http://docapp.esy.es/obtenerDisponibilidadMedico.php?jsoncallback=?";
 							$.getJSON(archivoValidacion,{medico : SelectCancelar[selectCita].Codigo}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var espec = "<div id=\"labelFechaPostergar\">Seleccione la cita<select id=\"selectFechaPostergar\">";
 												var selectDia;
 												for (var i = 0; i < respuestaServer.length; i++) {
@@ -173,9 +175,11 @@
 
 		$('#postergarCita').on('pagebeforeshow',
 						function() {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var espec = "<div id=\"labelCitaPostergar\">Seleccione la cita<select id=\"selectCitaPostergar\">";
 												SelectCancelar = respuestaServer;
 

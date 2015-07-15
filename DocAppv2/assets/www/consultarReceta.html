@@ -13,6 +13,7 @@
 <body>
 
 	<div data-role="page" id="verCitaReceta">
+		<div class="loading"></div>
 		<div class="barraTitulo">
 			<img style="margin-left: 10px;" align="left" id="botonback1" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
@@ -64,9 +65,11 @@
 
 		$('#verCitaReceta').on('pagebeforeshow',
 						function() {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var listaPac = "<div id=\"verCitaMedicaLista\">";
 												for (var i = 0; i < respuestaServer.length; i++) {
 													if (respuestaServer[i].Receta != null) {

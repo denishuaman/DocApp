@@ -1,8 +1,17 @@
 var dniUsuario = 12345678;
 var SelectCancelar;
 
+function showLoading(){
+	$('.loading').css('display','block');
+}
+
+function hideLoading(){
+	$('.loading').css('display','none');
+}
+
 $('#registrarCitaMedica').click(
 				function(event) {
+					showLoading();
 					archivoValidacion = "http://docapp.esy.es/registrarCita.php?jsoncallback=?";
 					var campoturnoCita = document.getElementById("turnoCita").value;
 					var campofecha = document.getElementById("fecha").value;
@@ -15,6 +24,7 @@ $('#registrarCitaMedica').click(
 					}).done(
 							function(respuestaServer) {
 								if (respuestaServer.ok == 1) {
+									hideLoading();
 									$.mobile.changePage('#pageCorrecto', 'pop', true, true);
 								} else {
 									$.mobile.changePage('#pageIncorrecto','pop', true, true);
@@ -26,6 +36,7 @@ $('#registrarCitaMedica').click(
 
 $('#botonRegistrarCM').click(
 				function(event) {
+					showLoading();
 					archivoValidacion = "http://docapp.esy.es/cantidad_doctores_turno.php?jsoncallback=?";
 					var yourSelectDia = document.getElementById("selectDia");
 					var selectDia = yourSelectDia.selectedIndex + 1;
@@ -43,6 +54,7 @@ $('#botonRegistrarCM').click(
 					var n = d.getFullYear() + "-" + (d.getMonth() + 1) + "-"+ d.getDate();
 					$.getJSON(archivoValidacion, { medico : selectDoc, fecha : n, dia : valDia}).done(
 									function(respuestaServer) {
+										hideLoading();
 										var campoCita = document.getElementById("turnoCita");
 										campoCita.value = parseInt(respuestaServer.cantidad) + 1;
 										codDoctor.value = selectDoc;
@@ -58,6 +70,7 @@ $('#botonRegistrarCM').click(
 
 $('#enviarFormularioDoc').click(
 				function(event) {
+					showLoading();
 					archivoValidacion = "http://docapp.esy.es/obtenerMedicoEspecialidadDia.php?jsoncallback=?";
 					var yourSelectEspec = document.getElementById("selectEspecialidad");
 					var selectEspec = yourSelectEspec.options[yourSelectEspec.selectedIndex].value;
@@ -66,6 +79,7 @@ $('#enviarFormularioDoc').click(
 					
 					$.getJSON(archivoValidacion, {especialidad : selectEspec, dia : selectDia}).done(
 									function(respuestaServer) {
+										hideLoading();
 										var selectdoc = "Escoja un medico: <div id=\"seleccionMedico\" ><select id=\"selectDoctor\">";
 										for (var i = 0; i < respuestaServer.length; i++) {
 											selectdoc = selectdoc
@@ -86,9 +100,12 @@ $('#enviarFormularioDoc').click(
 
 $('#botonReservarCitaMedica').click(
 				function(event) {
+					showLoading();
 					archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
 					$.getJSON(archivoValidacion).done(
 									function(respuestaServer) {
+
+										hideLoading();
 										var $espec = "<div id=\"labEspecialidad\"><select id=\"selectEspecialidad\">";
 										for (var i = 0; i < respuestaServer.length; i++) {
 											$espec = $espec
@@ -121,15 +138,19 @@ restaFechas = function(f2, f1) {
 	return dias;
 }
 
+
 $('#botonLogin').click(
 				function(event) {
+					showLoading();
 					var datosUsuario = $("#nombredeusuario").val();
 					var datosPassword = $("#clave").val();
 					archivoValidacion = "http://docapp.esy.es/Login.php?jsoncallback=?";
+					
 					$.getJSON(archivoValidacion, {usuario : datosUsuario,password : datosPassword}).done(
 									function(respuestaServer) {
 										if (respuestaServer.validacion == "ok") {
 											// / si la validacion es correcta
+											hideLoading();
 											dniUsuario = respuestaServer.dni;
  											$.getJSON("http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?",{paciente : dniUsuario}).done(
 															function(respuestaServer) {
@@ -158,3 +179,4 @@ $('#botonLogin').click(
 												alert("error");
 											});
 				});
+

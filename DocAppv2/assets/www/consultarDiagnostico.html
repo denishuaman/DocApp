@@ -12,6 +12,7 @@
 <body>
 
 	<div data-role="page" id="verCitaDiagnostico">
+		<div class="loading"></div>
 		<div class="barraTitulo">
 			<img style="margin-left: 10px;" align="left" id="botonback1" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
@@ -19,7 +20,7 @@
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
 
 		</div>
-		<div class="barraSubtitulo">Ver Cita Medica</div>
+		<div class="barraSubtitulo">Ver Diagnostico</div>
 		<div data-role="content">
 			<div id="verCitaMedicaLista"></div>
 		</div>
@@ -32,7 +33,7 @@
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
 
 		</div>
-		<div class="barraSubtitulo">Ver Cita Medica</div>
+		<div class="barraSubtitulo">Ver Diagnostico</div>
 		<div data-role="content">
 			<div id="labelDiagnosticoMedica"></div>
 		</div>
@@ -62,9 +63,11 @@
 				});
 		$('#verCitaDiagnostico').on('pagebeforeshow',
 						function() {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var listaPac = "<div id=\"verCitaMedicaLista\">";
 												for (var i = 0; i < respuestaServer.length; i++) {
 													if (respuestaServer[i].Diagnostico != null) {

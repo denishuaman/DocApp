@@ -14,6 +14,8 @@
 <body>
 
 	<div data-role="page" id="reservarcitaMedica">
+		<div class="loading"></div>
+
 		<div class="barraTitulo">
 			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
@@ -25,9 +27,18 @@
 		<div class="barraSubtitulo">Reservar Cita Medica</div>
 		<div data-role="content">
 			<div id="formReservarCita">
-				<div id="labEspecialidad">Seleccione la especialidad</div>
+				<div id="labEspecialidad">Seleccione la especialidad: </div>
+				<select id="selectEspecialidad">
+					<option value="Oftalmologia">Oftalmologia</option>
+					<option value="Dermatologia">Dermatologia</option>
+					<option value="Cardiologia">Cardiologia</option>
+					<option value="Otorrinolaringologia">Otorrinolaringologia</option>
+					<option value="Pediatria">Pediatria</option>
+					<option value="Ginecologia">Ginecologia</option>
+					<option value="Medicina General">Medicina General</option>
+				</select>
 				<div>
-					Seleccione el dia <select id="selectDia">
+					Seleccione el dia: <select id="selectDia">
 						<option value="LU">Lunes</option>
 						<option value="MA">Martes</option>
 						<option value="MI">Miercoles</option>
@@ -45,8 +56,10 @@
 	</div>
 
 	<div data-role="page" id="registroFinalMedico">
+		<div class="loading"></div>
+
 		<div class="barraTitulo">
-						<img style="margin-left: 10px;" align="left" src="atras.png" />
+						<img style="margin-left: 10px;" id="botonback2" align="left" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
@@ -55,17 +68,17 @@
 		<div class="barraSubtitulo">Reservar Cita Medica</div>
 		<div data-role="content">
 			<form id="formulario">
-				<label> N° de turno </label> 
+				<label> N° de turno:</label> 
 				<input type="text" id="turnoCita" name="turnoCita" readonly> 
-				<label> Código del doctor</label> 
+				<label> Código del doctor:</label> 
 				<input type="text" id="codDoctor" name="codDoctor" readonly>
-				<label> Especialidad </label> 
+				<label> Especialidad:</label> 
 				<input type="text" id="especialidad" name="especialidad" readonly> 
-				<label> Doctor </label> 
+				<label> Doctor:</label> 
 				<input type="text" id="doctor" name="doctor" readonly> 
-				<label> Fecha </label>
+				<label> Fecha:</label>
 				<input type="text" id="fecha" name="fecha" readonly>
-				<label> Hora </label> 
+				<label> Hora:</label> 
 				<input type="text" id="hora" name="hora"readonly>
 				<div id="registrarCitaMedica" class="botonFormulario">Registrar Cita!</div>
 			</form>
@@ -107,26 +120,7 @@ $('#botonback').click(function(){
 
 });
 
-		$('#reservarcitaMedica').on('pagebeforeshow',
-						function() {
 
-							archivoValidacion = "http://docapp.esy.es/obtenerEspecialidad.php?jsoncallback=?";
-							$.getJSON(archivoValidacion).done(
-											function(respuestaServer) {
-												var $espec = "<div id=\"labEspecialidad\">Seleccione la especialidad<select id=\"selectEspecialidad\">";
-
-												for (var i = 0; i < respuestaServer.length; i++) {
-													$espec = $espec
-															+ "<option value=\""+ respuestaServer[i].nombre+"\">"
-															+ respuestaServer[i].nombre
-															+ " </option>";
-												};
-
-												$espec = $espec+ "</select></div>";
-												$("#labEspecialidad").html($espec);
-												$("#labEspecialidad").trigger("create");
-											});
-						});
 	</script>
 </body>
 <script src="index2.js"></script>
