@@ -30,7 +30,7 @@ $('#registrarCitaMedica').click(
 									$.mobile.changePage('#pageIncorrecto','pop', true, true);
 								}
 							}).fail(function() {
-						alert("Ocurrio un error en la conexion");
+						alert("No se ha podido establecer conexion.");
 					});
 				});
 
@@ -64,7 +64,7 @@ $('#botonRegistrarCM').click(
 										especialidad.value = selectEspec;
 										$.mobile.changePage("#registroFinalMedico");
 									}).fail(function() {
-								alert("Ocurrio un error en la conexion");
+								alert("No se ha podido establecer conexion.");
 							});
 				});
 
@@ -80,21 +80,28 @@ $('#enviarFormularioDoc').click(
 					$.getJSON(archivoValidacion, {especialidad : selectEspec, dia : selectDia}).done(
 									function(respuestaServer) {
 										hideLoading();
-										var selectdoc = "Escoja un medico: <div id=\"seleccionMedico\" ><select id=\"selectDoctor\">";
-										for (var i = 0; i < respuestaServer.length; i++) {
-											selectdoc = selectdoc
-													+ "<option value=\""
-													+ respuestaServer[i].Codigo
-													+ "\">"
-													+ respuestaServer[i].Nombre
-													+ "</option>";
-										};
-										selectdoc = selectdoc + "</select></div>";
-										$("#seleccionMedico").html(selectdoc);
-										$("#seleccionMedico").trigger("create");
-										$("#botonRegistrarCM").css("display","block");
+										
+    										if(respuestaServer.length>0){
+    											var selectdoc = "Escoja un medico: <div id=\"seleccionMedico\" ><select id=\"selectDoctor\">";
+    											for (var i = 0; i < respuestaServer.length; i++) {
+    												selectdoc = selectdoc
+    														+ "<option value=\""
+    														+ respuestaServer[i].Codigo
+    														+ "\">Doctor: "
+    														+ respuestaServer[i].Apellidos
+    														+ " - Horario: "+respuestaServer[i].HoraIni
+    														+ " a "+ respuestaServer[i].HoraFin
+    														+ " - Capacidad: "+respuestaServer[i].Capacidad
+    														+ "</option>";
+    											};
+    											selectdoc = selectdoc + "</select></div>";
+    											$("#seleccionMedico").html(selectdoc);
+    											$("#seleccionMedico").trigger("create");
+    											$("#botonRegistrarCM").css("display","block");
+    										}
+
 									}).fail(function() {
-								alert("error");
+								alert("No se ha podido establecer conexion.");
 							});
 				});
 
@@ -115,11 +122,13 @@ $('#botonReservarCitaMedica').click(
 													+ respuestaServer[i].nombre
 													+ " </option>";
 										};
-
+										$.mobile.changePage
 										$espec = $espec + "</select></div>";
 										$("#labEspecialidad").html($espec);
 										$.mobile.changePage("#reservarcitaMedica");
 										$("#labEspecialidad").trigger("create");
+									}).fail(function(){
+										alert("No se ha podido establecer conexion.");
 									});
 				});
 
@@ -175,8 +184,8 @@ $('#botonLogin').click(
 										}
 
 									}).fail(
-											function() {
-												alert("error");
-											});
+										function() {
+											alert("No se ha podido establecer conexion.");
+									});
 				});
 

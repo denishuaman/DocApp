@@ -11,21 +11,22 @@
 <body>
 
 	<div data-role="page" id="cancelarCita">
+		<div class="loading"></div>
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
+			<img style="margin-left: 10px;" align="left" class="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
 
 		</div>
-		<div class="barraSubtitulo">Cancelar Cita MÃ©dica</div>
+		<div class="barraSubtitulo">Cancelar Cita Médica</div>
 		<div data-role="content">
 			<div id="labelCitaCancelar"></div>
-			<div id="verCitaCancelarBoton" class="botonFormulario">Ver</div>
+			<div id="verCitaCancelarBoton" data-role="button" data-theme="e" data-icon="arrow-r">Ver</div>
 			<br />
 			<div id="contentCitaCancelar"></div>
-			<div id="botonCancelarCita" style="display: none" class="botonFormulario">Cancelar Cita</div>
-			<div id="botonback2" class="botonRegresar">Regresar</div>
+			<div id="botonCancelarCita" style="display: none" data-role="button" data-theme="e" data-icon="arrow-r">Cancelar Cita</div>
+			<div class="botonback"  data-role="button" data-theme="d" data-icon="arrow-l">Regresar</div>
 		</div>
 	</div>
 	<section id="pageIncorrecto" data-role="dialog">
@@ -49,20 +50,15 @@
 	</section>
  	<script>
 
-	$('#botonback').click(function(){
+	$('.botonback').click(function(){
 
 		window.location.replace('citaMedica.html');
-
-
-	});
-
-	$('#botonback2').click(function(){
-			window.location.replace('citaMedica.html');
 
 
 });
 		$('#botonCancelarCita').click(
 						function(event) {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/cancelarCita.php?jsoncallback=?";
 							var yourSelectCita = document.getElementById("selectCitaCancelar");
 							var selectCita = yourSelectCita.selectedIndex;
@@ -72,6 +68,7 @@
 								paciente : dniUsuario
 							}).done(
 									function(respuestaServer) {
+										hideLoading();
 										if (respuestaServer.ok == 1) {
 											$.mobile.changePage('#pageCorrecto', 'pop',true, true);
 											yourSelectCita.remove(selectCita);
@@ -108,9 +105,11 @@
 
 		$('#cancelarCita').on('pagebeforeshow',
 						function() {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
 							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var espec = "<div id=\"labelCitaCancelar\">Seleccione la cita<select id=\"selectCitaCancelar\">";
 												SelectCancelar = respuestaServer;
 

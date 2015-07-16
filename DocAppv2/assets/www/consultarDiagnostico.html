@@ -14,7 +14,7 @@
 	<div data-role="page" id="verCitaDiagnostico">
 		<div class="loading"></div>
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" id="botonback1" src="atras.png" />
+			<img style="margin-left: 10px;" align="left" class="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
@@ -23,6 +23,7 @@
 		<div class="barraSubtitulo">Ver Diagnostico</div>
 		<div data-role="content">
 			<div id="verCitaMedicaLista"></div>
+			<div class="botonback"  data-role="button" data-theme="d" data-icon="arrow-l">Regresar</div>
 		</div>
 	</div>
 	<div data-role="page" id="verDiagnosticoMedica">
@@ -48,7 +49,7 @@
 
 	});
 
-	$('#botonback1').click(function(){
+	$('.botonback').click(function(){
 
 			window.location.replace('index.html#tareas');
 
@@ -56,7 +57,7 @@
 	});
 
 
-		$(".botonFormulario").live("click",
+		$(".boton").live("click",
 				function() {
 					$.mobile.changePage('#verDiagnosticoMedica');
 					$("#labelDiagnosticoMedica").html("<div>- Diagnostico:</div><div class=\"contentInformacion\">"+ $(this).attr("value") + "</div>");
@@ -86,12 +87,13 @@
 																+ respuestaServer[i].Nombres
 																+ " "
 																+ respuestaServer[i].Apellidos
-																+ "</div><div value=\""+respuestaServer[i].Diagnostico+"\" class=\"botonFormulario\">Ver Diagnostico</div></div>";
+																+ "</div><div data-role=\"button\" data-theme=\"e\" data-icon=\"arrow-r\" class=\"boton\" value=\""+respuestaServer[i].Diagnostico+"\" >Ver Diagnostico</div></div>";
 													}
 												}
 												listaPac = listaPac + "</div>";
 												$("#verCitaMedicaLista").html(listaPac);
-												$(".botonFormulario").trigger("create");
+												$(".boton").button();
+
 											}).fail(
 											function() {
 												alert("Ocurrio un error en la conexion");

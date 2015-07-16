@@ -17,7 +17,7 @@
 		<div class="loading"></div>
 
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
+			<img style="margin-left: 10px;" align="left" class="botonback1" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
@@ -47,10 +47,10 @@
 						<option value="SA">Sabado</option>
 					</select>
 				</div>
- 				<div id="enviarFormularioDoc" class="botonFormulario">Siguiente</div>
+ 				<div id="enviarFormularioDoc" data-role="button" data-theme="e" data-icon="arrow-r">Siguiente</div>
 				<div id="seleccionMedico"></div>
-				<div id="botonRegistrarCM" style="display: none;" class="botonFormulario">Continuar</div>
-				<div id="botonback2" class="botonRegresar">Regresar</div>
+				<div id="botonRegistrarCM" style="display: none;" data-role="button" data-theme="e" data-icon="arrow-r">Continuar</div>
+				<div class="botonback1" data-role="button" data-theme="d" data-icon="arrow-l">Regresar</div>
 			</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 		<div class="loading"></div>
 
 		<div class="barraTitulo">
-						<img style="margin-left: 10px;" id="botonback2" align="left" src="atras.png" />
+			<img style="margin-left: 10px;" class="botonback2" align="left" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
@@ -80,7 +80,7 @@
 				<input type="text" id="fecha" name="fecha" readonly>
 				<label> Hora:</label> 
 				<input type="text" id="hora" name="hora"readonly>
-				<div id="registrarCitaMedica" class="botonFormulario">Registrar Cita!</div>
+				<div id="registrarCitaMedica" data-role="button" data-theme="e" data-icon="arrow-r">Registrar Cita!</div>
 			</form>
 		</div>
 	</div>
@@ -107,15 +107,18 @@
 
 	<script>
 
-$('#botonback2').click(function(){
-			window.location.replace('citaMedica.html');
+
+
+$('.botonback1').click(function(){
+
+		window.location.replace('citaMedica.html');
 
 
 });
 
-$('#botonback').click(function(){
+$('.botonback2').click(function(){
 
-		window.location.replace('citaMedica.html');
+		window.location.replace('reservaCita.html');
 
 
 });

@@ -11,8 +11,9 @@
 
 <body>
 	<div data-role="page" id="verCitaMedica">
+		<div class="loading"></div>
 		<div class="barraTitulo">
-			<img style="margin-left: 10px;" align="left" id="botonback" src="atras.png" />
+			<img style="margin-left: 10px;" align="left" class="botonback" src="atras.png" />
 			<img style="margin-left: 10px;" align="center" src="iconsuperior.png" />
 			DocApp 
 			<img style="margin-rigth: 10px;" align="right" src="help.png" />
@@ -21,30 +22,26 @@
 		<div class="barraSubtitulo">Ver Cita Medica</div>
 		<div data-role="content">
 			<div id="verCitaMedicaLista"></div>
-			<div id="botonback2" class="botonRegresar">Regresar</div>
+			<div class="botonback"  data-role="button" data-theme="d" data-icon="arrow-l">Regresar</div>
 		</div>
 	</div>
 	<script src="index2.js"></script>
 	<script type="text/javascript">
 
-	$('#botonback2').click(function(){
+	$('.botonback').click(function(){
 			window.location.replace('citaMedica.html');
 
 
 });
 
-		$('#botonback').click(function(){
-
-			window.location.replace('citaMedica.html');
-
-
-		});
 
 		$('#verCitaMedica').on('pagebeforeshow',
 						function() {
+							showLoading();
 							archivoValidacion = "http://docapp.esy.es/visualizacion_citas.php?jsoncallback=?";
  							$.getJSON(archivoValidacion, {paciente : dniUsuario}).done(
 											function(respuestaServer) {
+												hideLoading();
 												var listaPac = "";
 												for (var i = 0; i < respuestaServer.length; i++) {
 													listaPac = listaPac
