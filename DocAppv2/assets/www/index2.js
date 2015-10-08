@@ -98,6 +98,9 @@ $('#enviarFormularioDoc').click(
     											$("#seleccionMedico").html(selectdoc);
     											$("#seleccionMedico").trigger("create");
     											$("#botonRegistrarCM").css("display","block");
+    										}else{
+
+    											$.mobile.changePage("#sinDoctoresMensaje",'pop',true,true);
     										}
 
 									}).fail(function() {
@@ -122,7 +125,7 @@ $('#botonReservarCitaMedica').click(
 													+ respuestaServer[i].nombre
 													+ " </option>";
 										};
-										$.mobile.changePage
+
 										$espec = $espec + "</select></div>";
 										$("#labEspecialidad").html($espec);
 										$.mobile.changePage("#reservarcitaMedica");
